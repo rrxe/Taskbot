@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rocket — لوحة التحكم</title>
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+
+<div id="login-screen" class="card">
+  <h2>تسجيل دخول الإدارة</h2>
+  <input id="login-password" type="password" placeholder="كلمة المرور" />
+  <button class="btn" id="btn-login" style="width:100%">دخول</button>
+</div>
+
+<div id="dashboard" class="layout hidden">
+  <div class="sidebar">
+    <div class="brand">Rocket <span style="opacity:.6;font-weight:500;font-size:13px">— لوحة التحكم</span></div>
+    <div class="item active" data-tab="overview">📊 نظرة عامة</div>
+    <div class="item" data-tab="countries">🌍 الدول</div>
+    <div class="item" data-tab="cpm">💰 CPM اليومي</div>
+    <div class="item" data-tab="users">👥 المستخدمون</div>
+    <div class="item" data-tab="withdrawals">💸 طلبات السحب</div>
+    <div class="item" data-tab="settings">⚙️ الإعدادات</div>
+    <div class="item" data-tab="cycles">📆 الدورة الشهرية</div>
+    <div class="item" data-tab="audit">📝 سجل العمليات</div>
+    <div class="item" id="btn-logout" style="margin-top:30px; color:var(--danger)">خروج</div>
+  </div>
+
+  <div class="content">
+    <!-- Overview -->
+    <div class="tab" id="tab-overview">
+      <h2>نظرة عامة</h2>
+      <div class="grid4">
+        <div class="box"><div class="num" id="ov-users">0</div><div class="lbl">المستخدمون</div></div>
+        <div class="box"><div class="num" id="ov-countries">0</div><div class="lbl">الدول الفعالة</div></div>
+        <div class="box"><div class="num" id="ov-withdrawals">0</div><div class="lbl">طلبات سحب معلّقة</div></div>
+        <div class="box"><div class="num" id="ov-revenue">$0</div><div class="lbl">إيراد الدورة الحالية</div></div>
+      </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="tab hidden" id="tab-countries">
+      <h2>إدارة الدول</h2>
+      <div class="card">
+        <div class="inline-form">
+          <input id="c-name" placeholder="اسم الدولة" />
+          <input id="c-code" placeholder="الرمز (IQ, SA..)" style="max-width:100px" />
+          <input id="c-order" type="number" placeholder="الترتيب" style="max-width:100px" />
+          <button class="btn" id="btn-add-country">إضافة</button>
+        </div>
+        <table id="countries-table"><thead><tr><th>الاسم</th><th>الرمز</th><th>المستخدمون</th><th>الحالة</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <!-- CPM -->
+    <div class="tab hidden" id="tab-cpm">
+      <h2>إدارة CPM اليومي</h2>
+      <div class="card">
+        <div class="inline-form">
+          <input id="cpm-date" type="date" />
+          <button class="btn secondary" id="btn-load-cpm">عرض</button>
+        </div>
+        <table id="cpm-table"><thead><tr><th>الدولة</th><th>CPM</th><th>المشاهدات</th><th>الإيراد</th><th>حصة المستخدمين</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <!-- Users -->
+    <div class="tab hidden" id="tab-users">
+      <h2>المستخدمون</h2>
+      <div class="card">
+        <div class="inline-form">
+          <input id="u-search" placeholder="بحث بالاسم أو معرف تيليجرام" />
+          <button class="btn secondary" id="btn-search-users">بحث</button>
+        </div>
+        <table id="users-table"><thead><tr><th>Telegram ID</th><th>الاسم</th><th>الدولة</th><th>الرصيد المتاح</th><th>المدفوع</th><th>الحالة</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <!-- Withdrawals -->
+    <div class="tab hidden" id="tab-withdrawals">
+      <h2>طلبات السحب</h2>
+      <div class="card">
+        <table id="withdrawals-table"><thead><tr><th>المستخدم</th><th>المبلغ</th><th>الطريقة</th><th>الحساب</th><th>الحالة</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="tab hidden" id="tab-settings">
+      <h2>الإعدادات</h2>
+      <div class="card">
+        <div class="toggle-wrap" style="margin-bottom:18px;">
+          <div>
+            <strong>حالة بلوكات AdsGram</strong>
+            <p style="color:var(--dim); font-size:13px; margin:4px 0 0 0">تُضبط من متغيرات البيئة في Dokploy (ADSGRAM_REWARD_BLOCK_ID / ADSGRAM_INTERSTITIAL_BLOCK_ID)</p>
+          </div>
+          <div id="ads-config-status" style="text-align:left;">
+            <div>Reward: <span class="badge off" id="ads-reward-badge">غير مُعرَّف</span></div>
+            <div style="margin-top:6px;">Interstitial: <span class="badge off" id="ads-int-badge">غير مُعرَّف</span></div>
+          </div>
+        </div>
+        <div class="toggle-wrap" style="margin-bottom:18px;">
+          <div>
+            <strong>حالة السحب (Withdraw)</strong>
+            <p style="color:var(--dim); font-size:13px; margin:4px 0 0 0">تحكم كامل بفتح أو إغلاق صفحة السحب لجميع المستخدمين</p>
+          </div>
+          <button class="btn" id="btn-toggle-withdraw">—</button>
+        </div>
+        <label>الحد اليومي للإعلانات</label>
+        <input id="s-daily-limit" type="number" />
+        <label>الحد الأدنى بين الإعلانات (ثانية)</label>
+        <input id="s-min-interval" type="number" />
+        <label>الحد الأدنى للسحب ($)</label>
+        <input id="s-min-withdraw" type="number" step="0.01" />
+        <label>نسبة حصة المستخدم (%)</label>
+        <input id="s-user-share" type="number" />
+        <button class="btn" id="btn-save-settings">حفظ الإعدادات</button>
+      </div>
+    </div>
+
+    <!-- Cycles -->
+    <div class="tab hidden" id="tab-cycles">
+      <h2>الدورة الشهرية</h2>
+      <div class="card" id="cycle-preview"></div>
+      <div class="card">
+        <button class="btn danger" id="btn-end-month">إنهاء الشهر وبدء دورة جديدة</button>
+      </div>
+      <div class="card">
+        <h3>سجل الدورات السابقة</h3>
+        <table id="cycles-table"><thead><tr><th>الشهر</th><th>الحالة</th><th>المشاهدات</th><th>الإيراد</th><th>حصة المستخدمين</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <!-- Audit -->
+    <div class="tab hidden" id="tab-audit">
+      <h2>سجل العمليات</h2>
+      <div class="card">
+        <table id="audit-table"><thead><tr><th>الوقت</th><th>الإجراء</th><th>الكيان</th><th>القيمة الجديدة</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/admin/js/admin.js"></script>
+</body>
+</html>

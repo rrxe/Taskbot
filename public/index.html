@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>Rocket — Ad Earnings</title>
+<meta name="description" content="Rocket: a transparent platform that turns watching ads into real earnings via AdsGram, with full transparency and verified payouts." />
+<meta name="theme-color" content="#101820" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235fb3a3'/%3E%3Cstop offset='1' stop-color='%234a90a4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" />
+<link rel="stylesheet" href="/css/style.css" />
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script async src="https://sad.adsgram.ai/js/sad.min.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <!-- Loading screen -->
+  <div id="screen-loading" class="center-screen">
+    <div class="logo-mark logo-lg">🚀</div>
+    <div class="spinner"></div>
+    <div data-i18n="loading">Loading…</div>
+  </div>
+
+  <!-- Error screen -->
+  <div id="screen-error" class="center-screen hidden">
+    <div style="font-size:44px">⚠️</div>
+    <div id="error-text" data-i18n="error_generic">Couldn't load data.</div>
+    <button id="btn-retry" class="btn" style="max-width:240px" data-i18n="retry">Try again</button>
+  </div>
+
+  <!-- Country selection screen -->
+  <div id="screen-country" class="hidden">
+    <div class="topbar">
+      <div class="brand-group"><div class="logo-mark">🚀</div><div class="brand">Rocket</div></div>
+    </div>
+    <div class="card" style="text-align:center; padding:22px 18px;">
+      <div style="font-size:15px; color:var(--text-dim)" data-i18n="welcome_sub">Welcome 👋 we're glad you're here</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0" data-i18n="choose_country">Choose your country</h3>
+      <p style="color:var(--text-dim); font-size:14px" data-i18n="choose_country_desc">This is used to set your ad earnings rate. It can't be changed later except through support.</p>
+      <div id="country-list" class="country-list"></div>
+      <button id="btn-confirm-country" class="btn" style="margin-top:16px" disabled data-i18n="confirm_country">Confirm country</button>
+    </div>
+  </div>
+
+  <!-- Home screen -->
+  <div id="screen-home" class="hidden">
+    <div class="topbar">
+      <div class="brand-group"><div class="logo-mark">🚀</div><div class="brand">Rocket</div></div>
+      <div class="topbar-right">
+        <button id="lang-toggle" class="lang-toggle" type="button" title="Language / اللغة">AR</button>
+        <div class="status-pill" id="country-pill">—</div>
+      </div>
+    </div>
+
+    <div class="card balance-card">
+      <div class="label" data-i18n="balance_available">Available balance</div>
+      <div class="amount" id="balance-available">$0.00</div>
+      <div class="sub"><span data-i18n="total_paid_label">Total paid:</span> <span id="balance-paid">$0.00</span></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="num" id="today-impressions">0</div>
+        <div class="lbl" data-i18n="today_impressions_label">Views today</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="today-earnings">$0.00</div>
+        <div class="lbl" data-i18n="today_earnings_label">Earnings today</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px; text-align:center;">
+      <p style="color:var(--text-dim); font-size:14px; margin-top:0" data-i18n="watch_ad_desc">Watch a full ad to earn a reward</p>
+      <button id="btn-watch-ad" class="btn">▶️ <span data-i18n="watch_ad_btn">Watch ad</span></button>
+      <p id="ad-note" style="font-size:12px; color:var(--text-dim); margin-bottom:0;"></p>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-chip">🌍 <span data-i18n="trust_countries">Multi-country</span></div>
+      <div class="trust-chip">🔐 <span data-i18n="trust_payouts">Verified payouts</span></div>
+      <div class="trust-chip">📊 <span data-i18n="trust_transparency">Full transparency</span></div>
+    </div>
+
+    <div class="app-footer">Rocket • <span data-i18n="version_label">Version 1.0.0</span></div>
+  </div>
+
+  <!-- Withdraw screen -->
+  <div id="screen-withdraw" class="hidden">
+    <div class="topbar">
+      <div class="brand-group"><div class="logo-mark">🚀</div><div class="brand" data-i18n="nav_withdraw">Withdraw</div></div>
+    </div>
+
+    <div id="withdraw-locked" class="card locked-box hidden">
+      <div class="icon">🔒</div>
+      <h3 style="margin:0 0 8px 0" data-i18n="withdraw_locked_title">Withdrawals are closed</h3>
+      <p style="margin:0" data-i18n="withdraw_locked_desc">The admin team will open withdrawals soon. Keep an eye on your balance from the Home tab.</p>
+    </div>
+
+    <div id="withdraw-open" class="card hidden">
+      <div class="balance-card" style="margin-bottom:16px;">
+        <div class="label" data-i18n="withdrawable_balance">Withdrawable balance</div>
+        <div class="amount" id="withdraw-balance">$0.00</div>
+      </div>
+      <input id="wd-amount" type="number" step="0.01" placeholder="Amount" data-i18n-placeholder="amount_placeholder" />
+      <select id="wd-method">
+        <option value="GRAM">GRAM</option>
+      </select>
+      <input id="wd-account" type="text" placeholder="Wallet address" data-i18n-placeholder="wallet_placeholder" autocomplete="off" autocapitalize="off" spellcheck="false" />
+      <button id="btn-submit-withdraw" class="btn" data-i18n="submit_withdraw">Submit withdrawal</button>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0" data-i18n="withdraw_history_title">Previous withdrawal requests</h4>
+      <div id="withdraw-history"></div>
+    </div>
+  </div>
+
+  <!-- History screen -->
+  <div id="screen-history" class="hidden">
+    <div class="topbar">
+      <div class="brand-group"><div class="logo-mark">🚀</div><div class="brand" data-i18n="nav_history">Monthly History</div></div>
+    </div>
+    <div class="card"><div id="history-list"></div></div>
+  </div>
+
+  <!-- Leaderboard screen -->
+  <div id="screen-leaderboard" class="hidden">
+    <div class="topbar">
+      <div class="brand-group"><div class="logo-mark">🚀</div><div class="brand" data-i18n="nav_leaderboard">Leaderboard</div></div>
+      <div class="status-pill" id="leaderboard-month">—</div>
+    </div>
+
+    <div class="card notice-box">
+      <div class="notice-icon">⏳</div>
+      <div class="notice-text" data-i18n="ads_not_live_notice">Ads are not live yet — we're waiting on AdsGram to activate this app's ad blocks. The leaderboard will start filling up as soon as ads go live.</div>
+    </div>
+
+    <div class="card">
+      <h4 style="margin-top:0" data-i18n="leaderboard_heading">🏆 Top Viewers This Month</h4>
+      <div id="leaderboard-list"></div>
+    </div>
+  </div>
+
+  <div class="bottomnav hidden" id="bottomnav">
+    <div class="nav-item active" data-screen="home"><span class="ic">🏠</span><span data-i18n="nav_home">Home</span></div>
+    <div class="nav-item" data-screen="withdraw"><span class="ic">💸</span><span data-i18n="nav_withdraw">Withdraw</span></div>
+    <div class="nav-item" data-screen="history"><span class="ic">📊</span><span data-i18n="nav_history">History</span></div>
+    <div class="nav-item" data-screen="leaderboard"><span class="ic">🏆</span><span data-i18n="nav_leaderboard">Leaderboard</span></div>
+  </div>
+</div>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
