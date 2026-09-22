@@ -184,8 +184,9 @@ function translateStaticEls() {
   document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
     el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
   });
-  const toggle = document.getElementById('lang-toggle');
-  if (toggle) toggle.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+  });
 }
 
 // Sets the language, updates dir/lang + static text, then lets the

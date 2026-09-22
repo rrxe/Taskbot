@@ -145,9 +145,29 @@ function showScreen(name) {
   document.getElementById('bottomnav').classList.toggle('hidden', !hasCountry() || alwaysOpen.includes(name));
   document.querySelectorAll('.nav-item').forEach((n) => n.classList.toggle('active', n.dataset.screen === name));
   window.scrollTo(0, 0);
-  if (name === 'withdraw') loadWithdraw().catch(() => toast(t('toast_load_failed')));
-  if (name === 'history') loadHistory().catch(() => toast(t('toast_load_failed')));
-  if (name === 'leaderboard') loadLeaderboard().catch(() => toast(t('toast_load_failed')));
+  if (name === 'withdraw') loadWithdraw().catch(() => renderLoadError('withdraw-history', loadWithdraw));
+  if (name === 'history') loadHistory().catch(() => renderLoadError('history-list', loadHistory));
+  if (name === 'leaderboard') loadLeaderboard().catch(() => renderLoadError('leaderboard-list', loadLeaderboard));
+}
+
+// Shows a friendly, retryable message inside a tab's list container instead
+// of a jarring global toast when that tab's data fails to load (e.g. the
+// backend is unreachable, or a DB migration hasn't been run yet).
+function renderLoadError(containerId, retryFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'load-error';
+  const msg = document.createElement('p');
+  msg.className = 'empty-note';
+  msg.textContent = t('toast_load_failed');
+  const retry = document.createElement('button');
+  retry.className = 'btn btn-sm';
+  retry.textContent = t('retry');
+  retry.onclick = () => retryFn().catch(() => renderLoadError(containerId, retryFn));
+  wrap.append(msg, retry);
+  el.appendChild(wrap);
 }
 
 document.getElementById('bottomnav').addEventListener('click', (e) => {
@@ -248,9 +268,11 @@ function renderHome(me) {
     me.today.earnings === 'pending' ? t('pending_label') : '$' + Number(me.today.earnings).toFixed(3);
 }
 
-document.getElementById('lang-toggle').addEventListener('click', () => {
-  const next = getLang() === 'ar' ? 'en' : 'ar';
-  setLang(next, refreshAllViews);
+document.querySelectorAll('.lang-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.lang === getLang()) return;
+    setLang(btn.dataset.lang, refreshAllViews);
+  });
 });
 
 // Re-renders every screen from cached data (no refetch) after a language switch.
