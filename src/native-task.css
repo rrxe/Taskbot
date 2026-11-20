@@ -1,0 +1,40 @@
+.easygram-native-task-backdrop{
+  position:fixed;inset:0;z-index:10000;display:grid;place-items:center;
+  padding:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom));
+  background:rgba(7,7,8,.68);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  animation:easygram-task-fade .18s ease-out;
+}
+.easygram-native-task-popup{
+  box-sizing:border-box;position:relative;width:min(100%,420px);padding:21px 18px 16px;
+  border:1px solid #e4d8f2;border-radius:22px;color:#1a171c;
+  background:linear-gradient(155deg,#ffffff 0%,#f6f0fc 100%);
+  box-shadow:0 24px 70px rgba(5,4,5,.28);animation:easygram-task-pop .22s ease-out;
+}
+.easygram-native-task-close{
+  position:absolute;inset-block-start:12px;inset-inline-end:12px;width:34px;height:34px;
+  display:grid;place-items:center;border:1px solid #e9e2f2;border-radius:11px;
+  background:#f8f5fc;color:#688697;cursor:pointer;
+}
+.easygram-native-task-heading{display:flex;align-items:center;gap:12px;padding-inline-end:36px}
+.easygram-native-task-icon{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;
+  border-radius:14px;background:linear-gradient(145deg,#efe5fb,#e6ddef);color:#681fbc}
+.easygram-native-task-heading strong{display:block;color:#19171c;font-size:15px;font-weight:900}
+.easygram-native-task-heading p{margin:4px 0 0;color:#8299a7;font-size:10px;line-height:1.55}
+.easygram-native-task-reward{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:17px 0 12px;padding:11px 13px;border:1px solid #e6ddee;border-radius:13px;background:#f6f3f9}
+.easygram-native-task-reward span{color:#8a8590;font-size:9px;font-weight:900;letter-spacing:1px}
+.easygram-native-task-reward b{color:#511596;font-size:14px;font-weight:900;direction:ltr;white-space:nowrap}
+.easygram-native-task-widget{display:block;box-sizing:border-box;width:100%;min-height:82px;padding:12px;
+  border:1px solid #e7e0f0;border-radius:15px;background:#ffffff;color:#1b191e;
+  --adsgram-task-font-size:13px;--adsgram-task-icon-size:36px;--adsgram-task-icon-title-gap:9px;
+  --adsgram-task-icon-border-radius:10px;--adsgram-task-button-width:116px;
+}
+.easygram-native-task-slot-reward{display:inline-block;margin:4px 0 0;color:#511596;font-size:12px;font-weight:900}
+.easygram-native-task-action{display:inline-flex;align-items:center;justify-content:center;min-height:34px;min-width:105px;
+  padding:0 13px;border:0;border-radius:10px;background:linear-gradient(135deg,#681fbc,#5a1aa3);
+  color:#ffffff;font-family:inherit;font-size:11px;font-weight:900;cursor:pointer}
+.easygram-native-task-done{display:inline-block;padding:8px 12px;border-radius:9px;background:#f0ebf6;color:#511596;font-size:11px;font-weight:900}
+.easygram-native-task-footnote{margin:12px 3px 0;color:#91a4af;text-align:center;font-size:9px;line-height:1.5}
+@keyframes easygram-task-fade{from{opacity:0}to{opacity:1}}
+@keyframes easygram-task-pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.easygram-native-task-backdrop,.easygram-native-task-popup{animation:none}}

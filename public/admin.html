@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070608" />
+  <title>Easy Gram — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{font-family:'DM Sans','Tajawal',sans-serif;color:#141216;background:#f7f4fb;--blue:#681fbc;--green:#5f20a7;--line:#ece6f3;--muted:#8b9eaa}*{box-sizing:border-box}body{margin:0;min-width:320px}button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;margin:auto;padding:0 22px 42px}.top{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#ffffff;margin:0 -22px;padding:0 22px}.brand{display:flex;align-items:center;gap:10px}.logo{width:40px;height:40px;border-radius:13px;background:#681fbc;color:#ffffff;display:grid;place-items:center;font-weight:800}.brand strong{display:block;font-size:14px}.brand small{color:#97a8b3;font-size:10px}.back{background:#f4eefb;color:#5d1ba8;border:1px solid #e6d9f5;border-radius:9px;padding:9px 12px;text-decoration:none;font-size:11px;font-weight:800}.layout{display:grid;grid-template-columns:205px 1fr;gap:22px;padding-top:22px}.sidebar{background:#ffffff;border:1px solid var(--line);border-radius:16px;padding:10px;height:max-content;position:sticky;top:16px}.side-btn{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:#728b9b;text-align:left;padding:12px;border-radius:10px;font-size:11px;font-weight:700}.side-btn.active{background:#f2eafb;color:#5c1ba7}.side-btn span{font-size:15px}.main{min-width:0}.heading{display:flex;justify-content:space-between;align-items:center;margin:2px 0 18px}.heading h1{margin:0 0 5px;font-size:24px;letter-spacing:-.6px}.heading p{margin:0;color:#91a3ae;font-size:11px}.content-section{display:none}.content-section.active{display:block}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:16px}.stat{padding:15px;background:#ffffff;border:1px solid var(--line);border-radius:13px}.stat span{display:block;color:#90a1ad;font-size:10px}.stat b{display:block;color:#19161b;font-size:23px;margin-top:7px}.panel{background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:13px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.panel h2{font-size:14px;margin:0;color:#1a171c}.muted{font-size:10px;color:#91a3ae}.btn{border:0;border-radius:9px;padding:9px 12px;background:#681fbc;color:#ffffff;font-weight:800;font-size:10px}.btn.soft{background:#f4eefb;color:#5c1ba7;border:1px solid #e8dcf5}.btn.green{background:#eee8f4;color:#561c98;border:1px solid #e6ddee}.btn.red{background:#f87777;color:#f42d2d;border:1px solid #f87777}.btn:disabled{opacity:.55;cursor:not-allowed}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:10px;color:#6c8494;font-weight:800}.field input,.field textarea,.field select{width:100%;border:1px solid #e8e1f0;border-radius:9px;background:#fcfbfe;padding:10px 11px;color:#17151a;outline:none;font-size:11px}.field textarea{min-height:92px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#b48ae3;box-shadow:0 0 0 3px #168fc511}.checkbox-row{display:flex;flex-wrap:wrap;gap:9px}.check{display:flex;align-items:center;gap:6px;font-size:10px;color:#668092;background:#f8f5fb;border:1px solid #ede8f3;padding:8px;border-radius:8px}.check input{accent-color:#681fbc}.task-row,.withdraw-row,.mod-row,.user-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #eff3f5}.task-row:first-of-type,.withdraw-row:first-of-type,.mod-row:first-of-type,.user-row:first-of-type{border-top:0}.task-main,.withdraw-main{min-width:0;flex:1}.task-main b,.withdraw-main b{display:block;font-size:11px;color:#1b191e}.task-main small,.withdraw-main small{display:block;color:#91a3ae;font-size:9px;margin-top:4px;overflow-wrap:anywhere}.row-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.badge{padding:5px 7px;border-radius:7px;background:#eee8f4;color:#59209b;font-size:9px;font-weight:800}.badge.off{background:#f0f3f5;color:#93a2ac}.player-tracking{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.player-tracking .badge{font-size:8px}.empty{padding:28px;text-align:center;color:#98a8b2;font-size:11px}.status{display:inline-block;font-size:9px;font-weight:800;padding:5px 8px;border-radius:7px;background:#efeef0;color:#8331e0}.status.completed{background:#eee8f4;color:#59209b}.status.rejected{background:#f87777;color:#f42d2d}.copy{border:1px solid #e7dff1;background:#f8f5fb;color:#6a4b8d;border-radius:7px;padding:6px 8px;font-size:9px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .field{margin:0 0 12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.notice{padding:11px 13px;background:#f2eafc;border:1px solid #e6d8f5;color:#68468f;border-radius:10px;font-size:10px;margin-bottom:12px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a171d;color:#ffffff;border-radius:10px;padding:11px 15px;font-size:11px;z-index:20;max-width:calc(100% - 24px);box-shadow:0 8px 25px #17374f22}.modal-bg{position:fixed;inset:0;background:#17374f55;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal-bg.open{display:flex}.modal{background:#ffffff;border-radius:16px;padding:18px;width:min(100%,490px);max-height:90vh;overflow:auto;box-shadow:0 20px 55px #17374f33}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h2{font-size:15px;margin:0}.close{border:0;background:#f5f2f8;border-radius:8px;padding:6px 9px;color:#678293}.permission-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0 12px}.search-row{display:flex;gap:8px}.search-row input{flex:1;min-width:0;border:1px solid #e8e1f0;border-radius:9px;padding:10px;font-size:11px}.ltr{direction:ltr;text-align:left}.loading{color:#90a3af;font-size:11px;padding:26px;text-align:center}.hidden{display:none!important}
+    @media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.shell{padding:0 12px 28px}.top{margin:0 -12px;padding:0 13px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{display:flex;overflow:auto;position:static;padding:5px;gap:3px}.side-btn{width:auto;white-space:nowrap;padding:10px;font-size:10px}.side-btn span{display:none}.stats{grid-template-columns:1fr 1fr}.heading h1{font-size:20px}.grid2,.form-grid{grid-template-columns:1fr}.task-row,.withdraw-row{align-items:flex-start}.row-actions{justify-content:flex-end}.panel{padding:13px}}
+  
+    /* Premium SLY-inspired operations console */
+    body{background:radial-gradient(ellipse at 18% -10%,#18161b 0%,#09080a 44%,#060607 100%);color:#f2eafc}
+    .top{background:rgba(8,8,9,.92);border-bottom:1px solid rgba(146,94,206,.22)}
+    .brand strong,.heading h1{color:#f7f1fd}.brand small,.heading p,.muted{color:#a891c2}
+    .sidebar,.panel,.stat,.modal{background:rgba(13,11,14,.94);border-color:rgba(156,111,207,.18);box-shadow:0 12px 34px rgba(0,0,0,.18)}
+    .side-btn{color:#bca8d3}.side-btn.active{background:linear-gradient(135deg,rgba(113,33,205,.26),rgba(113,33,205,.08));color:#b585eb;border:1px solid rgba(145,75,226,.25)}
+    .panel h2,.task-main b,.withdraw-main b{color:#f1e9fb}.stat span,.task-main small,.withdraw-main small,.empty{color:#a891c2}
+    .stat b{color:#bb90ed}.field label{color:#bca8d3}.field input,.field textarea,.field select,.search-row input{background:#0a090b;border-color:#19161c;color:#f3ebfc}
+    .field input::placeholder,.field textarea::placeholder,.search-row input::placeholder{color:#6e87a1}
+    .btn{background:linear-gradient(135deg,#681fbc,#611caf);color:#ffffff}.btn.soft,.back{background:#121014;border:1px solid #1d1a1f;color:#d2b5f3}.btn.green{background:#123b39;color:#a46fe0;border:1px solid #3c1b62}.btn.red{background:#da0b0b;color:#f87777;border:1px solid #da0b0b}
+    .task-row,.withdraw-row,.mod-row,.user-row{border-color:rgba(156,124,193,.15)}
+    .notice{background:#111013;border-color:#4c247a;color:#d1b4f3}.check{background:#0f0d10;border-color:#1b181d;color:#c9b5e0}
+    .status{background:#281341;color:#a66ce9}.status.completed{background:#123b39;color:#a572e0}.status.rejected{background:#da0b0b;color:#f87777}
+    .modal-bg{background:rgba(3,3,4,.76)}.close{background:#151317;color:#d7c4ed}
+    .badge{background:#123b39;color:#a571e0}.badge.off{background:#352734;color:#f87777}.player-tracking{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.player-tracking .badge{font-size:8px}
+    .toast{background:#1c191e;color:#ffffff}
+    .top .back{color:#d8bff5}
+    @media(max-width:760px){.sidebar{background:rgba(9,8,10,.95);border-color:#18161b}.side-btn{border:1px solid transparent}.side-btn.active{border-color:#57298b}}
+
+    /* V5: focused control-center layout — black, blue, green */
+    :root{color-scheme:dark;background:#050506;color:#f4edfc;--blue:#8e45e1;--green:#e6ddee;--line:#131115;--muted:#8ca3b9}
+    body{background:radial-gradient(ellipse at 12% -8%,rgba(108,32,195,.2),transparent 38%),#050506;color:#f4edfc}
+    .shell{max-width:1320px;padding-left:24px;padding-right:24px}
+    .top{background:rgba(6,5,6,.94);border-color:#131115;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+    .logo{background:linear-gradient(145deg,#8e45e1,#581a9e);box-shadow:0 7px 18px #1474e733}
+    .layout{grid-template-columns:220px minmax(0,1fr);gap:20px;padding-top:20px}
+    .sidebar{background:rgba(9,8,9,.96);border:1px solid #131115;border-radius:17px;padding:12px;box-shadow:0 16px 36px #0004}
+    .nav-caption{padding:13px 10px 6px;color:#63819e;font-size:9px;font-weight:800;letter-spacing:1.4px}
+    .nav-caption:first-child{padding-top:6px}
+    .side-btn{border:1px solid transparent;color:#b4a0ca;padding:11px 12px;margin:2px 0;font-size:11px;border-radius:10px;transition:.15s ease}
+    .side-btn:hover{background:#0f0d10;color:#ebddfa}
+    .side-btn.active{background:linear-gradient(120deg,#18151a,#0f0e11);border-color:#5d289a;color:#c29bef;box-shadow:inset 3px 0 #8e45e1}
+    .heading{margin:4px 0 20px}.heading h1{font-size:25px}.heading p{font-size:12px}
+    .stats{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .stat,.panel,.modal{background:linear-gradient(155deg,#0c0b0d,#090809);border:1px solid #151317;border-radius:15px;box-shadow:0 12px 30px #0003}
+    .stat{padding:17px}.stat span{color:#a38cbd}.stat b{color:#b789ec;font-size:25px}
+    .panel{padding:19px;margin-bottom:16px}.panel h2{color:#f6f0fc;font-size:15px}
+    .field label{color:#bea9d5}.field input,.field textarea,.field select,.search-row input{background:#080708;border:1px solid #18161b;color:#f6f0fc;border-radius:10px;min-height:40px}
+    .field input:focus,.field textarea:focus,.field select:focus,.search-row input:focus{border-color:#8e45e1;box-shadow:0 0 0 3px #2788ff1a}
+    .btn{background:linear-gradient(120deg,#8639df,#611daf);box-shadow:0 5px 14px #146fd51d}.btn.soft,.back{background:#0f0d10;border:1px solid #1c191e;color:#d5baf4}.btn.green{background:#25103c;color:#e6ddee;border-color:#3d1a66}.btn.red{background:#da0b0b;color:#f87777;border-color:#633642}
+    .task-row,.withdraw-row,.mod-row,.user-row{border-color:#161318;padding:14px 0}.task-main b,.withdraw-main b{color:#f6f0fc}.task-main small,.withdraw-main small{color:#a38dbd}
+    .badge{background:#25123a;color:#e6ddee}.badge.off{background:#342a35;color:#d9aabd}.player-tracking{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.player-tracking .badge{font-size:8px}
+    .notice{background:#100f12;border:1px solid #4c247a;color:#d2b5f3;border-radius:11px}
+    .check{background:#0e0d10;border-color:#1b181d;color:#d0c0e3}.check input{accent-color:#8e45e1}
+    .form-grid{gap:15px}.settings-form h2,#settings-form>h2{padding:0 0 10px;border-bottom:1px solid #161418;color:#c098ee;letter-spacing:.2px}
+    #settings-form .notice{line-height:1.6}#settings-form>h2{margin:22px 0 15px!important;padding:12px 14px;border:1px solid #171519;border-radius:10px;background:linear-gradient(100deg,#110f13,#0c0b0d);font-size:13px}#settings-form>h2:first-child{margin-top:0!important}#settings-form .form-grid{padding:0 2px 6px}#settings-form>.field{padding:0 2px}#settings-form .checkbox-row{padding:12px;background:#09080a;border:1px solid #141216;border-radius:11px}
+    .modal-bg{background:#02080fd9}.modal{max-height:88dvh}.modal-head h2{color:#f7f1fd}.close{background:#121114;color:#d8c6ed}
+    .status{background:#24113a;color:#a66be9}.status.completed{background:#24103b;color:#e6ddee}.status.rejected{background:#40212c;color:#f87777}
+    .copy{background:#0f0d10;border-color:#1d1a20;color:#d4b8f3}
+    .empty,.muted,.loading{color:#a48ebd}.toast{background:#171419;border:1px solid #5d289a}
+    @media(max-width:760px){.shell{padding:0 12px 28px}.top{margin:0 -12px;padding:0 13px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;overflow:visible;position:static}.nav-caption{grid-column:1/-1;padding:10px 7px 2px}.side-btn{width:100%;justify-content:flex-start;white-space:normal;padding:10px}.side-btn span{display:inline}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:14px}}
+    .settings-panel{padding:0;overflow:hidden}
+    .settings-group{padding:20px 21px 16px;border-bottom:1px solid #151317}
+    .settings-group:last-of-type{border-bottom:0}
+    .settings-group-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+    .settings-index{display:grid;place-items:center;flex:0 0 34px;height:34px;border:1px solid #4f287c;border-radius:10px;background:linear-gradient(145deg,#17151a,#0f0d10);color:#be94ee;font-size:10px;font-weight:900;letter-spacing:.5px}
+    .settings-group-head h2{margin:1px 0 5px!important;padding:0!important;border:0!important;background:none!important;color:#f4edfc!important;font-size:14px!important}
+    .settings-group-head p{margin:0;color:#849db5;font-size:10px;line-height:1.5}
+    .settings-group .form-grid{gap:12px 16px}
+    .settings-group .field textarea{min-height:72px}
+    .settings-group .notice{margin:4px 0 0}
+    .settings-group-last{padding-bottom:20px}
+    .settings-save-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 21px;background:#09080a;border-top:1px solid #161418}
+    .settings-save-row span{color:#829ab1;font-size:10px}
+    .settings-save-row .btn{min-width:145px;min-height:40px}
+    @media(max-width:760px){.settings-group{padding:16px 14px 13px}.settings-group-head{gap:9px}.settings-save-row{padding:13px 14px;align-items:flex-start;flex-direction:column}.settings-save-row .btn{width:100%}}
+
+
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top"><div class="brand"><div class="logo">EG</div><div><strong>Easy Gram</strong><small>Administration panel</small></div></div><div style="display:flex;gap:8px;align-items:center"><button class="back" id="language-toggle" type="button">العربية</button><a class="back" href="/">← Back to app</a></div></header>
+    <section id="auth-panel" class="panel" style="max-width:440px;margin:28px auto 0">
+      <h2 style="margin-bottom:8px">Admin login</h2>
+      <p class="muted" style="margin:0 0 14px">Enter your server ADMIN_SECRET to access the control panel.</p>
+      <div class="field"><label for="admin-secret">ADMIN_SECRET</label><input id="admin-secret" type="password" class="ltr" autocomplete="current-password" placeholder="Enter ADMIN_SECRET" /></div>
+      <div class="actions"><button class="btn" id="admin-login" type="button">Test connection</button><button class="btn soft" id="admin-logout" type="button">Clear saved key</button></div>
+      <p id="auth-message" class="muted" style="margin:12px 0 0">The key is stored only in this browser's local storage.</p>
+    </section>
+    <div id="loading" class="loading hidden">Checking administrator access…</div>
+    <div id="app" class="layout hidden">
+      <aside class="sidebar">
+        <div class="nav-caption">WORKSPACE</div>
+        <button class="side-btn active" data-tab="overview"><span>◫</span> Overview</button>
+        <button class="side-btn" data-tab="users"><span>♧</span> Users & tracking</button>
+        <div class="nav-caption">EARNING</div>
+        <button class="side-btn" data-tab="tasks"><span>▤</span> Tasks</button>
+        <button class="side-btn" data-tab="rewards"><span>✧</span> Gift codes & games</button>
+        <button class="side-btn" data-tab="subscriptions"><span>◉</span> Required channels</button>
+        <div class="nav-caption">PAYMENTS</div>
+        <button class="side-btn" data-tab="withdrawals"><span>↗</span> Withdrawals</button>
+        <div class="nav-caption">SYSTEM</div>
+        <button class="side-btn" data-tab="settings"><span>⚙</span> Settings</button>
+        <button class="side-btn" data-tab="moderators"><span>♙</span> Moderators</button>
+        <button class="side-btn" data-tab="broadcast"><span>✉</span> Broadcast</button>
+      </aside>
+      <main class="main">
+        <section class="content-section active" id="section-overview">
+          <div class="heading"><div><h1>Overview</h1><p>Easy Gram activity and quick status.</p></div><button class="btn soft" onclick="refreshData()">Refresh data</button></div>
+          <div class="stats"><div class="stat"><span>Total users</span><b id="stat-users">—</b></div><div class="stat"><span>Online now</span><b id="stat-online">—</b></div><div class="stat"><span>Pending withdrawals</span><b id="stat-pending">—</b></div><div class="stat"><span>All withdrawal requests</span><b id="stat-withdrawals">—</b></div><div class="stat"><span>Tasks</span><b id="stat-tasks">—</b></div></div>
+          <div class="panel"><div class="panel-head"><h2>Pending withdrawal requests</h2><button class="btn soft" onclick="switchTab('withdrawals')">Review all</button></div><div id="overview-withdrawals"></div></div>
+          <div class="notice">Admin access is verified through Telegram Mini App authentication. Moderator permissions are applied separately for each section.</div>
+        </section>
+
+        <section class="content-section" id="section-tasks">
+          <div class="heading"><div><h1>Tasks</h1><p>Create, edit, activate or remove earning tasks.</p></div><button class="btn" onclick="openTaskModal()">＋ Add task</button></div>
+          <div class="panel"><div id="task-list"></div></div>
+        </section>
+
+        <section class="content-section" id="section-rewards">
+          <div class="heading"><div><h1>Gift codes & games</h1><p>Create, edit, pause or remove reward codes for Easy Gram users.</p></div></div>
+          <div class="panel">
+            <h2 style="margin-bottom:12px">Create or edit gift code</h2>
+            <form id="gift-code-form">
+              <input type="hidden" name="id" />
+              <div class="form-grid">
+                <div class="field"><label>Gift code</label><input name="code" class="ltr" maxlength="32" minlength="3" placeholder="EASYGRAM2026" required /></div>
+                <div class="field"><label>Reward (Coins)</label><input name="rewardCoins" type="number" min="0" max="1000000000" step="1" value="10000" required /></div>
+                <div class="field"><label>Maximum uses (0 = unlimited)</label><input name="maxUses" type="number" min="0" max="10000000" step="1" value="100" required /></div>
+                <div class="field"><label>Expiry (optional)</label><input name="expiresAt" type="datetime-local" /></div>
+              </div>
+              <div class="actions"><button class="btn" type="submit">Save gift code</button><button class="btn soft" type="button" onclick="resetGiftCodeForm()">Clear form</button></div>
+            </form>
+          </div>
+          <div class="panel"><div class="panel-head"><h2>Gift codes</h2><button class="btn soft" type="button" onclick="refreshData()">Refresh</button></div><div id="gift-code-list"></div></div>
+          <div class="notice">A code can be redeemed once per Telegram account. The database enforces the total-use cap and credits the wallet in one transaction. Set maximum uses to 0 for unlimited uses.</div>
+        </section>
+
+        <section class="content-section" id="section-withdrawals">
+          <div class="heading"><div><h1>Withdrawals</h1><p>Review USDT payout requests (Binance / GRAM).</p></div><button class="btn soft" onclick="refreshData()">Refresh</button></div>
+          <div class="panel"><div id="withdrawal-list"></div></div>
+        </section>
+
+        <section class="content-section" id="section-settings">
+          <div class="heading"><div><h1>App settings</h1><p>Control Easy Gram behavior, payout rules and advertising.</p></div></div>
+          <form class="panel settings-panel" id="settings-form">
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">01</span><div><h2>General</h2><p>Basic identity and support information shown in Easy Gram.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>App name</label><input name="app_name" value="Easy Gram" maxlength="40" /></div>
+                <div class="field"><label>Support Telegram username</label><input name="support_username" placeholder="easygram_support" /></div>
+                <div class="field"><label>Welcome text</label><textarea name="welcome_text" maxlength="240"></textarea></div>
+                <div class="field"><label>Terms URL</label><input class="ltr" name="terms_url" placeholder="https://…" /></div>
+              </div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">02</span><div><h2>USDT withdrawal rules</h2><p>SLYMintX-compatible payout bounds and daily rewarded-ad ladder.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Minimum withdrawal (USDT)</label><input name="min_withdrawal_usdt" type="number" step="0.1" readonly /></div>
+                <div class="field"><label>Maximum withdrawal (USDT)</label><input name="max_withdrawal_usdt" type="number" step="0.1" readonly /></div>
+                <div class="field"><label>First daily withdrawal ads</label><input name="withdrawal_ads_base" type="number" readonly /></div>
+                <div class="field"><label>Extra ads per same-day withdrawal</label><input name="withdrawal_ads_increment" type="number" readonly /></div>
+              </div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">03</span><div><h2>Referral rewards</h2><p>The invited user must finish a number of different tasks before the inviter is paid.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Referral reward (Coins)</label><input name="referral_reward_coins" type="number" min="0" step="1" /></div>
+                <div class="field"><label>Different tasks required for referral reward</label><input name="referral_tasks_required" type="number" min="1" max="50" step="1" /></div>
+              </div>
+              <div class="notice">This requirement is saved when a new referral joins. Changing it affects new referrals; pending referrals keep their original requirement.</div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">04</span><div><h2>Mining</h2><p>Set the reward earned per hour and the length of each mining session.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Mining reward per hour (Coins)</label><input name="mining_rate_per_hour_coins" type="number" min="0" step="1" /></div>
+                <div class="field"><label>Mining session duration (hours)</label><input name="mining_duration_hours" type="number" min="1" max="24" step="1" /></div>
+              </div>
+              <div class="notice" id="mining-reward-preview">Mining payout is calculated as reward per hour × session duration. Active sessions keep the rate and duration saved when they started.</div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">05</span><div><h2>Ads &amp; AdsGram INT</h2><p>Use a separate block for automatic ads and one shared block for tasks, exchange, withdrawals and mining.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Automatic ads block ID</label><input class="ltr" name="adsgram_auto_block" placeholder="int-58010" /></div>
+                <div class="field"><label>Reward / action ads block ID</label><input class="ltr" name="adsgram_reward_block" placeholder="int-58009" /></div>
+                <div class="field"><label>Minimum task ad watch seconds</label><input name="task_min_watch_seconds" type="number" min="5" max="60" /></div>
+                <div class="field"><label>Ad cooldown (seconds)</label><input name="ad_cooldown_seconds" type="number" min="5" max="120" step="1" /></div>
+                <div class="field"><label>Automatic ad interval (seconds, minimum 30)</label><input name="auto_ads_interval_seconds" type="number" min="30" max="300" step="1" /></div>
+              </div>
+              <div class="notice">Automatic ads use only the Automatic block and never grant rewards. Tasks, exchange, withdrawals and mining use only the Reward / action block. A no-fill response is retried.</div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">06</span><div><h2>AdsGram Native Task</h2><p>Show a native AdsGram task popup after the user's third tap. Leave the block ID empty to disable it.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Native Task block ID</label><input class="ltr" name="adsgram_native_task_block" placeholder="task-0000" autocomplete="off" /></div>
+                <div class="field"><label>Reward per completed task (Coins)</label><input name="adsgram_native_task_reward_coins" type="number" min="0" step="1" /></div>
+              </div>
+              <div class="notice">Use one AdsGram Task block in the AdsGram platform. The server grants this reward only after AdsGram calls the configured Reward URL. The popup appears once per app session after 3 taps and can be closed.</div>
+            </section>
+
+            <section class="settings-group">
+              <div class="settings-group-head"><span class="settings-index">07</span><div><h2>Arcade & daily rewards</h2><p>Set daily game attempts, minimum server play time and the fixed reward for each successful mini-game.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Shared game attempts per day</label><input name="game_daily_attempts" type="number" min="1" max="20" step="1" /></div>
+                <div class="field"><label>Minimum game duration (seconds)</label><input name="game_min_duration_seconds" type="number" min="5" max="60" step="1" /></div>
+                <div class="field"><label>Orbit Dash reward (Coins)</label><input name="game_reward_orbit" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Memory Matrix reward (Coins)</label><input name="game_reward_memory" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Reactor Rush reward (Coins)</label><input name="game_reward_reactor" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Pulse Reaction reward (Coins)</label><input name="game_reward_pulse" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Math Sprint reward (Coins)</label><input name="game_reward_math" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Extra attempts from ads per day (0–10)</label><input name="game_max_bonus_attempts" type="number" min="0" max="10" step="1" /></div>
+              </div>
+              <div class="settings-group-head" style="margin-top:16px"><span class="settings-index">07A</span><div><h2>Seven-day check-in rewards</h2><p>Set the Coin reward for each day in the daily streak cycle.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label>Day 1 reward (Coins)</label><input name="daily_reward_day_1" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 2 reward (Coins)</label><input name="daily_reward_day_2" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 3 reward (Coins)</label><input name="daily_reward_day_3" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 4 reward (Coins)</label><input name="daily_reward_day_4" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 5 reward (Coins)</label><input name="daily_reward_day_5" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 6 reward (Coins)</label><input name="daily_reward_day_6" type="number" min="0" max="1000000000" step="1" /></div>
+                <div class="field"><label>Day 7 reward (Coins)</label><input name="daily_reward_day_7" type="number" min="0" max="1000000000" step="1" /></div>
+              </div>
+              <div class="notice">Attempts are shared across all five games. A started run consumes one attempt, including if the player exits early. Each verified AdsGram reward ad grants one extra attempt, up to the daily cap. Set a game reward to 0 to disable it. Daily rewards restart at Day 1 after a missed day.</div>
+            </section>
+
+            <section class="settings-group settings-group-last">
+              <div class="settings-group-head"><span class="settings-index">08</span><div><h2>App controls</h2><p>Pause payouts, pause the app or control registration and automatic ads.</p></div></div>
+              <div class="checkbox-row">
+                <label class="check"><input name="gram_withdrawals_enabled" type="checkbox" /> USDT withdrawals enabled</label>
+                <label class="check"><input name="maintenance_mode" type="checkbox" /> Maintenance mode</label>
+                <label class="check"><input name="registration_enabled" type="checkbox" /> Allow new users</label>
+                <label class="check"><input name="auto_ads_enabled" type="checkbox" /> Enable automatic AdsGram ads</label>
+              </div>
+            </section>
+            <div class="settings-save-row"><span>Changes take effect after saving.</span><button class="btn" type="submit">Save all settings</button></div>
+          </form>
+        </section>
+
+        <section class="content-section" id="section-subscriptions">
+          <div class="heading"><div><h1>Required channels</h1><p>Users must join every active channel before earning or withdrawing.</p></div></div>
+          <div class="panel">
+            <h2 style="margin-bottom:12px">Add a required channel</h2>
+            <form id="channel-form">
+              <div class="form-grid">
+                <div class="field"><label>Channel display name</label><input name="title" maxlength="80" placeholder="Easy Gram News" required /></div>
+                <div class="field"><label>Telegram chat ID / username</label><input name="chatId" class="ltr" maxlength="100" placeholder="@easygram_news or -100123456789" required /></div>
+                <div class="field"><label>Join / invite URL</label><input name="joinUrl" class="ltr" type="url" placeholder="https://t.me/easygram_news" required /></div>
+              </div>
+              <label class="check" style="margin-bottom:12px"><input type="checkbox" name="isActive" checked /> Required subscription is active</label>
+              <button class="btn" type="submit">Add channel</button>
+            </form>
+          </div>
+          <div class="panel"><div class="panel-head"><h2>Configured channels</h2><button class="btn soft" type="button" onclick="refreshData()">Refresh</button></div><div id="required-channel-list"></div></div>
+          <div class="notice">Important: add your bot as an administrator in each channel so Telegram allows it to check member status. Use the channel username (for public channels) or numeric chat ID (for private channels).</div>
+        </section>
+
+        <section class="content-section" id="section-moderators">
+          <div class="heading"><div><h1>Moderators</h1><p>Add trusted Telegram accounts and choose their permissions.</p></div></div>
+          <div class="panel">
+            <h2 style="margin-bottom:12px">Add or update moderator</h2>
+            <form id="moderator-form">
+              <div class="field"><label>Telegram numeric ID</label><input name="telegramId" class="ltr" inputmode="numeric" placeholder="123456789" required /></div>
+              <div class="muted">Choose which sections this moderator can manage.</div>
+              <div class="permission-list" id="permission-list"></div>
+              <button class="btn" type="submit">Save moderator</button>
+            </form>
+          </div>
+          <div class="panel"><h2 style="margin-bottom:10px">Current administrators</h2><div id="moderator-list"></div></div>
+        </section>
+
+        <section class="content-section" id="section-broadcast">
+          <div class="heading"><div><h1>Broadcast</h1><p>Send an announcement to registered Easy Gram users.</p></div></div>
+          <form class="panel" id="broadcast-form">
+            <div class="field"><label>Message</label><textarea name="message" maxlength="3500" placeholder="Write your announcement…" required></textarea></div>
+            <div class="muted" style="margin-bottom:12px">The message is sent as plain text. Telegram delivery limits may affect very large broadcasts.</div>
+            <button class="btn" type="submit">Send to all users</button>
+          </form>
+        </section>
+
+        <section class="content-section" id="section-users">
+          <div class="heading"><div><h1>Users</h1><p>Search recent users and check their balances.</p></div></div>
+          <div class="panel"><div class="search-row"><input id="user-search" placeholder="Telegram ID, username or name" /><button class="btn" onclick="searchUsers()" type="button">Search</button></div><div class="notice" style="margin-top:12px">Player tracking shows lifetime completed task actions and the number of new users who registered through each player’s referral link. Referral reward status is shown separately.</div><div id="user-list" style="margin-top:12px"></div></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="modal-bg" id="task-modal-bg"><div class="modal"><div class="modal-head"><h2 id="task-modal-title">Add task</h2><button class="close" onclick="closeTaskModal()">✕</button></div>
+    <form id="task-form">
+      <input type="hidden" name="id" />
+      <div class="field"><label>Task title</label><input name="title" maxlength="100" required /></div>
+      <div class="field"><label>Description</label><input name="description" maxlength="240" /></div>
+      <div class="form-grid">
+        <div class="field"><label>Task type</label><select name="kind"><option value="ad">AdsGram INT ad</option><option value="link">Visit link</option><option value="channel">Join channel</option><option value="bot">Open bot</option></select></div>
+        <div class="field"><label>Reward (Coins)</label><input name="rewardCoins" type="number" step="1" min="0" required /></div>
+        <div class="field"><label id="max-completions-label">Ads per batch (0 = unlimited)</label><input name="maxCompletions" type="number" min="0" step="1" value="1" /></div>
+        <div class="field" id="ad-cooldown-field"><label>Cooldown after each ad batch (hours)</label><input name="cooldownHours" type="number" min="1" max="168" step="1" value="5" /><small>Example: 6 ads per batch, then wait 5 hours. Set ads per batch to 0 for unlimited ads without a batch cooldown.</small></div>
+        <div class="field"><label>Sort order</label><input name="sortOrder" type="number" min="0" value="0" /></div>
+      </div>
+      <div class="field"><label>Task URL (not needed for ad tasks)</label><input class="ltr" name="url" placeholder="https://t.me/…" /></div>
+      <div class="field"><label>Channel chat ID / username (for channel tasks)</label><input class="ltr" name="chatId" placeholder="@channel or -100123456789 (not an invite link)" /></div>
+      <label class="check" style="margin-bottom:14px"><input type="checkbox" name="isActive" checked /> Task is active and visible</label>
+      <div class="actions"><button class="btn" type="submit">Save task</button><button class="btn soft" type="button" onclick="closeTaskModal()">Cancel</button></div>
+    </form>
+  </div></div>
+  <div id="toast" class="toast hidden"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const initData = window.Telegram?.WebApp?.initData || '';
+    const savedAdminSecret = localStorage.getItem('easygram_admin_secret') || '';
+    if (savedAdminSecret) $('admin-secret').value = savedAdminSecret;
+    let dashboard = {};
+    let currentPermissions = [];
+    let owner = false;
+    const permissionNames = {dashboard:'Dashboard',tasks:'Tasks',withdrawals:'Withdrawals',settings:'Settings',moderators:'Moderators',broadcast:'Broadcast',users:'Users',subscriptions:'Required channels'};
+    const adminAr = {
+      'Administration panel':'لوحة الإدارة','Back to app':'العودة إلى التطبيق','Checking administrator access…':'جارٍ التحقق من صلاحيات الإدارة…',
+      'Overview':'نظرة عامة','Users & tracking':'المستخدمون والتتبع','Gift codes & games':'أكواد الهدايا والألعاب','Create, edit, activate or remove earning tasks.':'إضافة المهام وتعديلها وتفعيلها أو حذفها.','WORKSPACE':'مساحة العمل','EARNING':'الربح','PAYMENTS':'المدفوعات','SYSTEM':'النظام','Test bot access':'اختبار صلاحيات البوت','Online now':'نشطون الآن','Online':'متصل الآن','Offline':'غير متصل','Tasks':'المهام','Gift codes & games':'أكواد الهدايا والألعاب','Create or edit gift code':'إنشاء أو تعديل كود هدية','Gift code':'كود الهدية','Reward (Coins)':'المكافأة (Coins)','Maximum uses (0 = unlimited)':'الحد الأقصى للاستخدام (0 = غير محدود)','Expiry (optional)':'تاريخ الانتهاء (اختياري)','Save gift code':'حفظ كود الهدية','Clear form':'مسح الحقول','Gift codes':'أكواد الهدايا','No gift codes yet.':'لا توجد أكواد حتى الآن.','Expired':'منتهي الصلاحية','Edit':'تعديل','Pause':'إيقاف','Enable':'تفعيل','Delete':'حذف','Arcade & daily rewards':'الألعاب والمكافآت اليومية','Seven-day check-in rewards':'مكافآت التسجيل خلال سبعة أيام','Set the Coin reward for each day in the daily streak cycle.':'حدد مكافأة Coins لكل يوم في سلسلة التسجيل اليومي.','Day 1 reward (Coins)':'مكافأة اليوم الأول (Coins)','Day 2 reward (Coins)':'مكافأة اليوم الثاني (Coins)','Day 3 reward (Coins)':'مكافأة اليوم الثالث (Coins)','Day 4 reward (Coins)':'مكافأة اليوم الرابع (Coins)','Day 5 reward (Coins)':'مكافأة اليوم الخامس (Coins)','Day 6 reward (Coins)':'مكافأة اليوم السادس (Coins)','Day 7 reward (Coins)':'مكافأة اليوم السابع (Coins)','Shared game attempts per day':'محاولات الألعاب المشتركة يومياً','Minimum game duration (seconds)':'الحد الأدنى لمدة اللعب (ثوانٍ)','Orbit Dash reward (Coins)':'مكافأة مطاردة المدار (Coins)','Memory Matrix reward (Coins)':'مكافأة مصفوفة الذاكرة (Coins)','Reactor Rush reward (Coins)':'مكافأة اندفاع المفاعل (Coins)','Settings':'الإعدادات','Moderators':'المشرفون','Broadcast':'الرسائل الجماعية','Users':'المستخدمون',
+      'Easy Gram activity and quick status.':'نشاط Easy Gram وحالة النظام.','Refresh data':'تحديث البيانات','Total users':'إجمالي المستخدمين','Pending withdrawals':'طلبات السحب المعلقة',
+      'All withdrawal requests':'كل طلبات السحب','All withdrawal requests':'كل طلبات السحب','Pending withdrawal requests':'طلبات السحب قيد المراجعة','Review all':'مراجعة الكل',
+      'Admin access is verified through ADMIN_SECRET, with individual Telegram permissions for moderators.':'يتم الدخول باستخدام ADMIN_SECRET، مع صلاحيات تيليجرام مستقلة للمشرفين.',
+      'Create, edit, activate or remove earning tasks.':'إضافة مهام الربح وتعديلها وتفعيلها أو حذفها.','＋ Add task':'＋ إضافة مهمة','Withdrawals':'السحوبات',
+      'Review USDT payout requests (Binance / GRAM).':'راجع طلبات سحب USDT إلى Binance أو محفظة GRAM.','App settings':'إعدادات التطبيق','Control Easy Gram behavior, payout rules and advertising.':'تحكم في Easy Gram وقواعد السحب والإعلانات.',
+      'General':'عام','App name':'اسم التطبيق','Support Telegram username':'اسم مستخدم الدعم على تيليجرام','Minimum withdrawal (GRAM)':'الحد الأدنى للسحب (GRAM)','USDT withdrawal rules':'قواعد سحب USDT','Minimum withdrawal (USDT)':'الحد الأدنى للسحب (USDT)','Maximum withdrawal (USDT)':'الحد الأقصى للسحب (USDT)','First daily withdrawal ads':'إعلانات أول سحبة يومياً','Extra ads per same-day withdrawal':'إعلانات إضافية لكل سحبة في نفس اليوم',
+      'Ads required per withdrawal':'عدد الإعلانات لكل عملية سحب','Referral reward (GRAM)':'مكافأة الإحالة (GRAM)','Referral reward (Coins)':'مكافأة الإحالة (Coins)','Mining reward per hour (Coins)':'مكافأة التعدين لكل ساعة (Coins)','Reward per completed task (Coins)':'مكافأة المهمة (Coins)','USDT withdrawals enabled':'تفعيل سحوبات USDT','Different tasks required for referral reward':'عدد المهام المختلفة المطلوبة لتفعيل مكافأة الإحالة','Ad cooldown (seconds)':'الفاصل بين الإعلانات (ثوانٍ)','Mining reward per hour (GRAM)':'مكافأة التعدين لكل ساعة (GRAM)','Mining session duration (hours)':'مدة جلسة التعدين (بالساعات)',
+      'Welcome text':'نص الترحيب','Automatic ad interval (seconds, minimum 30)':'الفاصل بين الإعلانات التلقائية (ثانية، الحد الأدنى 30)','Enable automatic AdsGram ads':'تفعيل إعلانات AdsGram التلقائية','AdsGram INT blocks':'معرّفات إعلانات AdsGram INT','Automatic ads block ID':'معرّف الإعلانات التلقائية','Reward / action ads block ID':'معرّف إعلانات المهام والسحب والتعدين','AdsGram Native Task':'مهمة AdsGram الأصلية','Native Task block ID':'معرّف المهمة الأصلية','Reward per completed task (GRAM)':'مكافأة كل مهمة مكتملة (GRAM)',"Show a native AdsGram task popup after the user's third tap. Leave the block ID empty to disable it.":'إظهار نافذة مهمة AdsGram بعد ثالث ضغطة. اترك المعرّف فارغاً لتعطيلها.','Use one AdsGram Task block in the AdsGram platform. The server grants this reward only after AdsGram calls the configured Reward URL. The popup appears once per app session after 3 taps and can be closed.':'استخدم بلوك Task واحداً في منصة AdsGram. يمنح السيرفر المكافأة فقط بعد وصول Reward URL من AdsGram. تظهر النافذة مرة واحدة في الجلسة بعد 3 ضغطات ويمكن إغلاقها.',
+      'Minimum task ad watch seconds':'أقل مدة مشاهدة إعلان المهمة','Terms URL':'رابط الشروط','Gram withdrawal method':'طريقة سحب Gram','Method display name':'اسم طريقة السحب',
+      'Payment note shown to users':'ملاحظة الدفع التي تظهر للمستخدمين','Gram withdrawals enabled':'تفعيل سحوبات Gram','Maintenance mode':'وضع الصيانة','Allow new users':'السماح بتسجيل مستخدمين جدد',
+      'Save settings':'حفظ الإعدادات','Add trusted Telegram accounts and choose their permissions.':'أضف حسابات تيليجرام موثوقة وحدد صلاحياتها.',
+      'Add or update moderator':'إضافة مشرف أو تعديل صلاحياته','Telegram numeric ID':'معرّف تيليجرام الرقمي','Choose which sections this moderator can manage.':'اختر الأقسام التي يستطيع هذا المشرف إدارتها.',
+      'Save moderator':'حفظ المشرف','Current administrators':'المسؤولون الحاليون','Send an announcement to registered Easy Gram users.':'أرسل إعلاناً إلى مستخدمي Easy Gram المسجلين.',
+      'Message':'الرسالة','Write your announcement…':'اكتب إعلانك…','The message is sent as plain text. Telegram delivery limits may affect very large broadcasts.':'تُرسل الرسالة كنص عادي. قد تؤثر حدود تيليجرام على الإرسال الجماعي الكبير.',
+      'Send to all users':'إرسال إلى كل المستخدمين','Search recent users and check their balances.':'ابحث عن اللاعبين وتابع المهام المكتملة وعدد المنضمين من روابط الدعوة.',
+      'Player tracking shows lifetime completed task actions and the number of new users who registered through each player’s referral link. Referral reward status is shown separately.':'يعرض تتبع اللاعبين إجمالي مرات إكمال المهام وعدد المستخدمين الجدد الذين سجلوا من رابط دعوة كل لاعب، مع فصل الإحالات المدفوعة عن المعلقة.','Tasks completed:':'المهام المكتملة:','Different tasks:':'المهام المختلفة:','Joined by link:':'دخلوا من الرابط:','Rewarded:':'مكافآت مدفوعة:','Pending:':'معلقة:','Telegram ID, username or name':'معرّف تيليجرام أو اسم المستخدم أو الاسم','Search':'بحث','Add task':'إضافة مهمة','Task title':'عنوان المهمة','Description':'الوصف',
+      'Task type':'نوع المهمة','AdsGram INT ad':'إعلان AdsGram INT','Visit link':'زيارة رابط','Join channel':'الانضمام إلى قناة','Open bot':'فتح بوت',
+      'Reward (GRAM)':'المكافأة (GRAM)','Completions allowed (0 = unlimited)':'عدد مرات الإكمال (0 = غير محدود)','Ads per batch (0 = unlimited)':'عدد الإعلانات في المجموعة (0 = غير محدود)','Cooldown after each ad batch (hours)':'مدة الانتظار بعد كل مجموعة إعلانات (بالساعات)','Example: 6 ads per batch, then wait 5 hours. Set ads per batch to 0 for unlimited ads without a batch cooldown.':'مثال: 6 إعلانات في المجموعة ثم انتظار 5 ساعات. ضع 0 لإعلانات غير محدودة دون انتظار مجموعة.','Sort order':'ترتيب الظهور',
+      'Task URL (not needed for ad tasks)':'رابط المهمة (غير مطلوب لمهام الإعلان)','Channel chat ID / username (for channel tasks)':'معرّف القناة أو اسمها (لمهام الانضمام)','Task is active and visible':'المهمة مفعّلة وظاهرة','Save task':'حفظ المهمة','Cancel':'إلغاء',
+      'No pending withdrawals.':'لا توجد طلبات سحب معلقة.','No tasks yet. Add your first task.':'لا توجد مهام بعد. أضف أول مهمة.','No administrators yet.':'لا يوجد مشرفون بعد.',
+      'Required channels':'قنوات الاشتراك الإجباري','Add a required channel':'إضافة قناة اشتراك إجباري','Channel display name':'اسم القناة','Telegram chat ID / username':'معرّف القناة أو اسمها','Join / invite URL':'رابط الانضمام','Add a required channel':'إضافة قناة اشتراك إجباري','Configured channels':'القنوات المضبوطة','Configured channels':'القنوات المضبوطة','No required channels configured.':'لا توجد قنوات اشتراك مضبوطة.','No users found.':'لم يتم العثور على مستخدمين.','Active':'مفعّلة','Paused':'متوقفة','Unlimited':'غير محدود','Edit':'تعديل','Pause':'إيقاف','Enable':'تفعيل','Delete':'حذف',
+      'Copy wallet':'نسخ المحفظة','Approve':'قبول','Reject':'رفض','Remove':'إزالة','Owner':'المالك','Moderator':'مشرف','No permissions':'لا توجد صلاحيات',
+      'Task saved.':'تم حفظ المهمة.','Task deleted.':'تم حذف المهمة.','Task updated.':'تم تحديث المهمة.','Moderator saved.':'تم حفظ المشرف.',
+      'Moderator removed.':'تمت إزالة المشرف.','Settings saved.':'تم حفظ الإعدادات.','Copied to clipboard.':'تم النسخ.','Copy is not available on this device.':'النسخ غير متاح على هذا الجهاز.',
+      'Owner permission required.':'يتطلب صلاحية المالك.','Banned':'محظور','Active':'نشط','Last seen':'آخر ظهور','Ban user':'حظر المستخدم','Unban':'إلغاء الحظر','Adjust balance':'تعديل الرصيد','Delete channel':'حذف القناة','No required channels configured.':'لا توجد قنوات اشتراك مضبوطة.','You do not have task permissions.':'ليست لديك صلاحية إدارة المهام.','You do not have withdrawal permissions.':'ليست لديك صلاحية إدارة السحوبات.',
+      'Only the owner can manage moderators.':'المالك فقط يستطيع إدارة المشرفين.','Enter the correct ADMIN_SECRET or open this page inside Telegram as an authorized moderator.':'افتح هذه الصفحة من بوت Easy Gram لتسجيل الدخول.',
+      'No withdrawal requests yet.':'لا توجد طلبات سحب حتى الآن.','Task completed successfully!':'اكتملت المهمة بنجاح!','Paid':'مدفوع','Pending':'قيد الانتظار','Completed':'مكتمل','Rejected':'مرفوض'
+    };
+    const adminEn = Object.fromEntries(Object.entries(adminAr).map(([en,ar])=>[ar,en]));
+    let adminLang = localStorage.getItem('easygram.lang') === 'ar' ? 'ar' : (String(window.Telegram?.WebApp?.initDataUnsafe?.user?.language_code||'').startsWith('ar')?'ar':'en');
+    function applyAdminLanguage(){
+      const map = adminLang === 'ar' ? adminAr : adminEn;
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let node;
+      while((node=walker.nextNode())){
+        if(node.parentElement && ['SCRIPT','STYLE'].includes(node.parentElement.tagName)) continue;
+        const raw=node.nodeValue||'', trimmed=raw.trim();
+        if(map[trimmed]) node.nodeValue=raw.replace(trimmed,map[trimmed]);
+      }
+      document.documentElement.lang=adminLang;document.documentElement.dir=adminLang==='ar'?'rtl':'ltr';
+      $('language-toggle').textContent=adminLang==='ar'?'English':'العربية';
+      const placeholders=adminLang==='ar'?{'Player tracking shows lifetime completed task actions and the number of new users who registered through each player’s referral link. Referral reward status is shown separately.':'يعرض تتبع اللاعبين إجمالي مرات إكمال المهام وعدد المستخدمين الجدد الذين سجلوا من رابط دعوة كل لاعب، مع فصل الإحالات المدفوعة عن المعلقة.','Tasks completed:':'المهام المكتملة:','Different tasks:':'المهام المختلفة:','Joined by link:':'دخلوا من الرابط:','Rewarded:':'مكافآت مدفوعة:','Pending:':'معلقة:','Telegram ID, username or name':'معرّف تيليجرام أو اسم المستخدم أو الاسم','Write your announcement…':'اكتب إعلانك…'}:{'معرّف تيليجرام أو اسم المستخدم أو الاسم':'Telegram ID, username or name','اكتب إعلانك…':'Write your announcement…'};
+      document.querySelectorAll('input,textarea').forEach(el=>{if(placeholders[el.placeholder])el.placeholder=placeholders[el.placeholder]});
+    }
+    $('language-toggle').addEventListener('click',()=>{adminLang=adminLang==='ar'?'en':'ar';localStorage.setItem('easygram.lang',adminLang);applyAdminLanguage();renderUsers(dashboard.users||[])});
+    function toast(message){const el=$('toast');el.textContent=message;el.classList.remove('hidden');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.classList.add('hidden'),3300)}
+    async function request(url='/api/admin', body=null){
+      const headers={'Content-Type':'application/json'};
+      const secret=($('admin-secret')?.value || localStorage.getItem('easygram_admin_secret') || '').trim();
+      if(secret) headers['x-admin-secret']=secret;
+      if(initData) headers.Authorization=`tga ${initData}`;
+      const response=await fetch(url,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined});
+      const data=await response.json().catch(()=>({})); if(!response.ok) throw new Error(data.error||`Request failed (${response.status})`); return data;
+    }
+    function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+    function fmt(value){return new Intl.NumberFormat(undefined,{maximumFractionDigits:4}).format(Number(value||0))}
+    function date(value){try{return new Date(value).toLocaleString()}catch{return value||'—'}}
+    function switchTab(tab){document.querySelectorAll('.side-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===tab));document.querySelectorAll('.content-section').forEach(section=>section.classList.toggle('active',section.id===`section-${tab}`))}
+    document.querySelectorAll('.side-btn').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
+    document.addEventListener('click',(event)=>{const target=event.target.closest('.copy-wallet');if(target)copyText(target.dataset.wallet||'')});
+
+    async function refreshData(){
+      $('auth-message').textContent='Checking access…';
+      try{
+        dashboard=await request();
+        currentPermissions=dashboard.admin.permissions||[];
+        owner=dashboard.admin.role==='owner';
+        $('auth-panel').classList.add('hidden');
+        $('loading').classList.add('hidden');
+        $('app').classList.remove('hidden');
+        renderAll();
+      } catch(error){
+        $('app').classList.add('hidden');
+        $('loading').classList.add('hidden');
+        $('auth-panel').classList.remove('hidden');
+        $('auth-message').textContent=error.message;
+      }
+    }
+    function renderAll(){
+      $('stat-users').textContent=dashboard.stats?.users??0;$('stat-online').textContent=dashboard.stats?.onlineUsers??0;$('stat-pending').textContent=dashboard.stats?.pendingWithdrawals??0;$('stat-withdrawals').textContent=dashboard.stats?.totalWithdrawals??0;$('stat-tasks').textContent=dashboard.stats?.tasks??0;
+      renderTasks();renderWithdrawals();renderGiftCodes();renderSettings();renderModerators();renderUsers(dashboard.users||[]);renderRequiredChannels();renderOverviewWithdrawals();
+      // Hide sections this moderator does not have access to.
+      document.querySelectorAll('.side-btn').forEach(btn=>{const key=btn.dataset.tab;const permission=key==='rewards'?'settings':key;btn.classList.toggle('hidden',!owner&&key!=='overview'&&!currentPermissions.includes(permission));});
+      if(!owner){$('moderator-form').closest('.panel').classList.add('hidden');}
+      buildPermissionChecks();
+      applyAdminLanguage();
+    }
+    function renderOverviewWithdrawals(){const rows=dashboard.withdrawals||[];$('overview-withdrawals').innerHTML=rows.length?rows.slice(0,5).map(w=>`<div class="withdraw-row"><div class="withdraw-main"><b>${escapeHtml(w.first_name||'Gram User')} ${w.username?'@'+escapeHtml(w.username):''} · ${fmt(w.amount_usdt)} USDT</b><small>${escapeHtml(w.telegram_id)} · ${date(w.created_at)}</small></div><span class="status">Pending</span></div>`).join(''):'<div class="empty">No pending withdrawals.</div>'}
+    function renderTasks(){if(!dashboard.tasks){$('task-list').innerHTML='<div class="empty">You do not have task permissions.</div>';return}const list=dashboard.tasks;$('task-list').innerHTML=list.length?list.map(task=>{const adRule=task.kind==='ad'?(Number(task.max_completions)>0?(adminLang==='ar'?`${Number(task.max_completions)} إعلانات في المجموعة · انتظار ${Number(task.cooldown_hours||5)} ساعات`:`${Number(task.max_completions)} ads per batch · ${Number(task.cooldown_hours||5)}h cooldown`):(adminLang==='ar'?'إعلانات غير محدودة · دون انتظار':'Unlimited ads · no batch cooldown')):(task.max_completions===0?(adminLang==='ar'?'غير محدود':'Unlimited'):`${task.max_completions} ${adminLang==='ar'?'إكمالات':'completions'}`);return `<div class="task-row"><div class="task-main"><b>${escapeHtml(task.title)} <span class="badge ${task.is_active?'':'off'}">${task.is_active?'Active':'Paused'}</span></b><small>${escapeHtml(task.kind)} · +${fmt(task.reward_coins)} COINS · ${adRule}${task.url?' · '+escapeHtml(task.url):''}${task.chat_id?' · '+escapeHtml(task.chat_id):''}</small></div><div class="row-actions">${task.kind==='channel'?`<button class="btn soft" onclick="testTaskChannel(${Number(task.id)})">Test channel</button>`:''}<button class="btn soft" onclick="editTask(${Number(task.id)})">Edit</button><button class="btn soft" onclick="toggleTask(${Number(task.id)},${!task.is_active})">${task.is_active?'Pause':'Enable'}</button><button class="btn red" onclick="deleteTask(${Number(task.id)})">Delete</button></div></div>`}).join(''):'<div class="empty">No tasks yet. Add your first task.</div>'}
+    function renderGiftCodes(){if(!dashboard.giftCodes){$('gift-code-list').innerHTML='<div class="empty">You do not have settings permissions.</div>';return}const list=dashboard.giftCodes;$('gift-code-list').innerHTML=list.length?list.map(code=>{const used=Number(code.current_uses||0),limit=Number(code.max_uses||0);const expired=code.expires_at&&Date.parse(code.expires_at)<=Date.now();return `<div class="task-row"><div class="task-main"><b>${escapeHtml(code.code)} <span class="badge ${code.is_active&&!expired?'':'off'}">${expired?'Expired':code.is_active?'Active':'Paused'}</span></b><small>+${fmt(code.reward_coins)} COINS · ${used}/${limit===0?'∞':limit} uses${code.expires_at?' · Expires '+date(code.expires_at):''}</small></div><div class="row-actions"><button class="btn soft" onclick="editGiftCode('${code.id}')">Edit</button><button class="btn soft" onclick="toggleGiftCode('${code.id}',${!code.is_active})">${code.is_active?'Pause':'Enable'}</button><button class="btn red" onclick="deleteGiftCode('${code.id}')">Delete</button></div></div>`}).join(''):'<div class="empty">No gift codes yet.</div>'}
+    function renderWithdrawals(){if(!dashboard.withdrawals){$('withdrawal-list').innerHTML='<div class="empty">You do not have withdrawal permissions.</div>';return}const list=dashboard.withdrawals;$('withdrawal-list').innerHTML=list.length?list.map(w=>`<div class="withdraw-row"><div class="withdraw-main"><b>${escapeHtml(w.first_name||'Gram User')} ${w.username?'@'+escapeHtml(w.username):''} · ${fmt(w.amount_usdt)} USDT</b><small>${escapeHtml(w.telegram_id)} · ${escapeHtml(w.method).toUpperCase()}<br/>${escapeHtml(w.target)}<br/>${date(w.created_at)}</small><button class="copy copy-wallet" data-wallet="${escapeHtml(w.target)}">Copy destination</button></div><div class="row-actions"><button class="btn green" onclick="reviewWithdrawal('${w.id}','approve')">Approve</button><button class="btn red" onclick="reviewWithdrawal('${w.id}','reject')">Reject</button></div></div>`).join(''):'<div class="empty">No pending withdrawal requests.</div>'}
+    function renderSettings(){if(!dashboard.settings){$('settings-form').innerHTML='<div class="empty">You do not have settings permissions.</div>';return}const f=$('settings-form'),s=dashboard.settings;Object.keys(s).forEach(key=>{const input=f.elements.namedItem(key);if(!input)return;if(input.type==='checkbox')input.checked=Boolean(s[key]);else input.value=s[key]??''});const rewards=Array.isArray(s.daily_checkin_rewards)?s.daily_checkin_rewards:[200,300,400,500,650,800,1200];rewards.slice(0,7).forEach((value,index)=>{const input=f.elements.namedItem(`daily_reward_day_${index+1}`);if(input)input.value=value});updateMiningPreview()}
+    function renderModerators(){if(!dashboard.moderators){$('moderator-list').innerHTML='<div class="empty">Owner permission required.</div>';return}const rows=dashboard.moderators;$('moderator-list').innerHTML=rows.map(m=>`<div class="mod-row"><div class="task-main"><b>${escapeHtml(m.first_name||m.username||m.telegram_id)} <span class="badge ${m.role==='owner'?'':'off'}">${escapeHtml(m.role)}</span></b><small>${escapeHtml(m.telegram_id)} · ${(m.permissions||[]).map(p=>permissionNames[p]||p).join(', ')||'No permissions'}</small></div>${m.role==='owner'?'':`<button class="btn red" onclick="deleteModerator('${m.telegram_id}')">Remove</button>`}</div>`).join('')||'<div class="empty">No administrators yet.</div>'}
+    function renderUsers(rows){const labels=adminLang==='ar'?{tasks:'مهام مكتملة',different:'مهام مختلفة',joined:'دخلوا من الرابط',rewarded:'مكافآت مدفوعة',pending:'معلّقة'}:{tasks:'Tasks completed',different:'Different tasks',joined:'Joined by link',rewarded:'Rewarded',pending:'Pending'};$('user-list').innerHTML=rows.length?rows.map(u=>{const online=!!u.last_seen_at&&Date.now()-Date.parse(u.last_seen_at)<=300000;const tracking=u.tracking||{};return `<div class="user-row"><div class="task-main"><b>${escapeHtml(u.first_name||'User')} ${u.username?'@'+escapeHtml(u.username):''} ${online?'<span class="badge">Online</span>':'<span class="badge off">Offline</span>'} ${u.is_banned?'<span class="badge off">Banned</span>':''}</b><small>${escapeHtml(u.telegram_id)} · Joined ${date(u.created_at)} · Last seen ${date(u.last_seen_at)}${u.ban_reason?' · '+escapeHtml(u.ban_reason):''}</small><div class="player-tracking"><span class="badge">${labels.tasks}: ${fmt(tracking.tasksCompleted)}</span><span class="badge">${labels.different}: ${fmt(tracking.uniqueTasksCompleted)}</span><span class="badge">${labels.joined}: ${fmt(tracking.referralsJoined)}</span><span class="badge">${labels.rewarded}: ${fmt(tracking.referralsRewarded)}</span><span class="badge off">${labels.pending}: ${fmt(tracking.referralsPending)}</span></div></div><div class="row-actions"><span class="badge">${fmt(u.coin_balance)} COINS · ${fmt(u.usdt_balance)} USDT</span><button class="btn soft" onclick="adjustBalance('${escapeHtml(u.telegram_id)}')">Adjust balance</button><button class="btn ${u.is_banned?'green':'red'}" onclick="setUserBan('${escapeHtml(u.telegram_id)}',${!u.is_banned})">${u.is_banned?'Unban':'Ban user'}</button></div></div>`}).join(''):'<div class="empty">No users found.</div>'}
+    function renderRequiredChannels(){if(!dashboard.requiredChannels){$('required-channel-list').innerHTML='<div class="empty">You do not have channel-management permissions.</div>';return}const rows=dashboard.requiredChannels;$('required-channel-list').innerHTML=rows.length?rows.map(c=>`<div class="task-row"><div class="task-main"><b>${escapeHtml(c.title)} <span class="badge ${c.is_active?'':'off'}">${c.is_active?'Active':'Paused'}</span></b><small>${escapeHtml(c.chat_id)} · ${escapeHtml(c.join_url)}</small></div><div class="row-actions"><button class="btn soft" onclick="testRequiredChannel(${Number(c.id)})">Test bot access</button><button class="btn soft" onclick="toggleRequiredChannel(${Number(c.id)},${!c.is_active})">${c.is_active?'Pause':'Enable'}</button><button class="btn red" onclick="deleteRequiredChannel(${Number(c.id)})">Delete channel</button></div></div>`).join(''):'<div class="empty">No required channels configured.</div>'}
+    function buildPermissionChecks(){const options=['tasks','withdrawals','settings','broadcast','users','subscriptions'];$('permission-list').innerHTML=options.map(key=>`<label class="check"><input type="checkbox" name="permission" value="${key}" ${key==='dashboard'?'checked':''}/> ${permissionNames[key]}</label>`).join('')}
+    function updateTaskFormKind(){const f=$('task-form'),isAd=f.elements.kind.value==='ad',isAr=typeof adminLang!=='undefined'&&adminLang==='ar';f.elements.url.disabled=isAd;f.elements.url.placeholder=isAd?'Not needed for ad tasks':'https://t.me/…';$('ad-cooldown-field').classList.toggle('hidden',!isAd);$('max-completions-label').textContent=isAd?(isAr?'عدد الإعلانات في المجموعة (0 = غير محدود)':'Ads per batch (0 = unlimited)'):(isAr?'عدد مرات الإكمال (0 = غير محدود)':'Completions allowed (0 = unlimited)')}
+    function openTaskModal(task=null){const f=$('task-form');f.reset();f.elements.id.value=task?.id||'';f.elements.title.value=task?.title||'';f.elements.description.value=task?.description||'';f.elements.kind.value=task?.kind||'ad';f.elements.rewardCoins.value=task?.reward_coins??0;f.elements.maxCompletions.value=task?.max_completions??(f.elements.kind.value==='ad'?6:1);f.elements.cooldownHours.value=task?.cooldown_hours??5;f.elements.sortOrder.value=task?.sort_order??0;f.elements.url.value=task?.url||'';f.elements.chatId.value=task?.chat_id||'';f.elements.isActive.checked=task?.is_active!==false;updateTaskFormKind();$('task-modal-title').textContent=task?'Edit task':'Add task';$('task-modal-bg').classList.add('open')}
+    function closeTaskModal(){$('task-modal-bg').classList.remove('open')}
+    function editTask(id){const task=(dashboard.tasks||[]).find(item=>Number(item.id)===Number(id));if(task)openTaskModal(task)}
+    async function saveTask(event){event.preventDefault();const f=event.currentTarget;const data=Object.fromEntries(new FormData(f).entries());data.id=data.id?Number(data.id):null;data.rewardCoins=Math.trunc(Number(data.rewardCoins));data.maxCompletions=Number(data.maxCompletions);data.cooldownHours=Number(data.cooldownHours);data.sortOrder=Number(data.sortOrder);data.isActive=f.elements.isActive.checked;try{await request('/api/admin',{action:'save_task',...data});closeTaskModal();toast('Task saved.');await refreshData()}catch(error){toast(error.message)}}
+    async function deleteTask(id){if(!confirm('Delete this task and its completion records?'))return;try{await request('/api/admin',{action:'delete_task',id});toast('Task deleted.');await refreshData()}catch(error){toast(error.message)}}
+    async function toggleTask(id,isActive){try{await request('/api/admin',{action:'toggle_task',id,isActive});toast('Task updated.');await refreshData()}catch(error){toast(error.message)}}
+    async function reviewWithdrawal(id,review){const note=review==='reject'?prompt('Optional reason for rejection:')||'':'';if(review==='reject'&&!confirm('Reject this USDT withdrawal and refund the user?'))return;if(review==='approve'&&!confirm('Mark this withdrawal as paid/completed?'))return;try{await request('/api/admin',{action:'review_withdrawal',id,review,note});toast(review==='approve'?'Withdrawal marked as completed.':'Withdrawal rejected and refunded.');await refreshData()}catch(error){toast(error.message)}}
+    function updateMiningPreview(){const f=$('settings-form');if(!f)return;const rateInput=f.elements.namedItem('mining_rate_per_hour_coins'),durationInput=f.elements.namedItem('mining_duration_hours'),preview=$('mining-reward-preview');if(!rateInput||!durationInput||!preview)return;const rate=Math.max(0,Number(rateInput.value)||0);const hours=Math.max(1,Number(durationInput.value)||1);preview.textContent=`New mining sessions will earn ${Math.trunc(rate).toLocaleString()} Coins per hour for ${hours} hour(s): ${Math.trunc(rate*hours).toLocaleString()} Coins total. Active sessions are not changed.`}
+    $('settings-form').elements.namedItem('mining_rate_per_hour_coins')?.addEventListener('input',updateMiningPreview);$('settings-form').elements.namedItem('mining_duration_hours')?.addEventListener('input',updateMiningPreview);
+    async function saveSettings(event){event.preventDefault();const f=event.currentTarget;const settings={};for(const key of ['app_name','welcome_text','support_username','terms_url','adsgram_auto_block','adsgram_reward_block','adsgram_native_task_block'])settings[key]=f.elements.namedItem(key).value;for(const key of ['referral_reward_coins','referral_tasks_required','task_min_watch_seconds','ad_cooldown_seconds','mining_rate_per_hour_coins','mining_duration_hours','auto_ads_interval_seconds','adsgram_native_task_reward_coins','game_daily_attempts','game_min_duration_seconds','game_reward_orbit','game_reward_memory','game_reward_reactor','game_reward_pulse','game_reward_math','game_max_bonus_attempts'])settings[key]=Number(f.elements.namedItem(key).value);settings.daily_checkin_rewards=Array.from({length:7},(_,index)=>Number(f.elements.namedItem(`daily_reward_day_${index+1}`).value));for(const key of ['gram_withdrawals_enabled','maintenance_mode','registration_enabled','auto_ads_enabled'])settings[key]=f.elements.namedItem(key).checked;try{const data=await request('/api/admin',{action:'save_settings',settings});dashboard.settings=data.settings;toast('Settings saved.');renderSettings()}catch(error){toast(error.message)}}
+    async function saveModerator(event){event.preventDefault();if(!owner)return;const f=event.currentTarget;const telegramId=f.elements.telegramId.value.trim();const permissions=[...f.querySelectorAll('input[name="permission"]:checked')].map(input=>input.value);try{await request('/api/admin',{action:'save_moderator',telegramId,permissions});f.reset();toast('Moderator saved.');await refreshData()}catch(error){toast(error.message)}}
+    async function deleteModerator(telegramId){if(!confirm('Remove this moderator?'))return;try{await request('/api/admin',{action:'delete_moderator',telegramId});toast('Moderator removed.');await refreshData()}catch(error){toast(error.message)}}
+    async function broadcast(event){event.preventDefault();const message=event.currentTarget.elements.message.value.trim();if(!message)return;if(!confirm('Send this message to every registered Easy Gram user?'))return;const button=event.currentTarget.querySelector('button[type="submit"]');button.disabled=true;button.textContent='Sending…';try{const result=await request('/api/admin',{action:'broadcast',message});toast(`Sent: ${result.sent} · Failed: ${result.failed}`);event.currentTarget.reset()}catch(error){toast(error.message)}finally{button.disabled=false;button.textContent='Send to all users'}}
+    async function searchUsers(){const query=$('user-search').value.trim();try{const data=await request('/api/admin',{action:'users',query});renderUsers(data.users||[])}catch(error){toast(error.message)}}
+    async function saveRequiredChannel(event){event.preventDefault();const f=event.currentTarget;const data=Object.fromEntries(new FormData(f).entries());data.isActive=f.elements.isActive.checked;try{await request('/api/admin',{action:'save_required_channel',...data});f.reset();f.elements.isActive.checked=true;toast('Channel saved.');await refreshData()}catch(error){toast(error.message)}}
+    async function testRequiredChannel(id){try{const data=await request('/api/admin',{action:'test_required_channel',id});toast(data.botIsAdmin?'Bot access verified. Mandatory subscription is ready.':data.message)}catch(error){toast(error.message)}}
+    async function testTaskChannel(id){try{const data=await request('/api/admin',{action:'test_task_channel',id});toast(data.message||'Channel test passed.')}catch(error){toast(error.message)}}
+    async function toggleRequiredChannel(id,isActive){try{await request('/api/admin',{action:'toggle_required_channel',id,isActive});toast('Channel updated.');await refreshData()}catch(error){toast(error.message)}}
+    async function deleteRequiredChannel(id){if(!confirm('Delete this required channel?'))return;try{await request('/api/admin',{action:'delete_required_channel',id});toast('Channel deleted.');await refreshData()}catch(error){toast(error.message)}}
+    async function setUserBan(telegramId,banned){const reason=banned?(prompt('Reason for suspension (optional):')||''):'';if(!confirm(banned?'Suspend this user?':'Restore this user account?'))return;try{await request('/api/admin',{action:'ban_user',telegramId,banned,reason});toast(banned?'User suspended.':'User restored.');await searchUsers()}catch(error){toast(error.message)}}
+    async function adjustBalance(telegramId){const raw=prompt('Enter a positive or negative whole Coin adjustment (example: 5000 or -5000):');if(raw===null)return;const delta=Number(raw);if(!Number.isFinite(delta)||delta===0)return toast('Enter a valid non-zero amount.');try{await request('/api/admin',{action:'adjust_balance',telegramId,delta});toast('Balance updated.');await searchUsers()}catch(error){toast(error.message)}}
+    function resetGiftCodeForm(){const f=$('gift-code-form');f.reset();f.elements.id.value='';f.elements.rewardCoins.value='10000';f.elements.maxUses.value='100'}
+    function editGiftCode(id){const code=(dashboard.giftCodes||[]).find(row=>row.id===id);if(!code)return;const f=$('gift-code-form');f.elements.id.value=code.id;f.elements.code.value=code.code;f.elements.rewardCoins.value=code.reward_coins;f.elements.maxUses.value=code.max_uses;const expiry=code.expires_at?new Date(code.expires_at):null;if(expiry&&!Number.isNaN(expiry.getTime()))expiry.setMinutes(expiry.getMinutes()-expiry.getTimezoneOffset());f.elements.expiresAt.value=expiry?expiry.toISOString().slice(0,16):'';switchTab('rewards');$('gift-code-form').scrollIntoView({behavior:'smooth',block:'center'})}
+    async function saveGiftCode(event){event.preventDefault();const f=event.currentTarget;const payload=Object.fromEntries(new FormData(f).entries());payload.rewardCoins=Number(payload.rewardCoins);payload.maxUses=Number(payload.maxUses);try{await request('/api/admin',{action:'save_gift_code',...payload});toast('Gift code saved.');resetGiftCodeForm();await refreshData()}catch(error){toast(error.message)}}
+    async function toggleGiftCode(id,isActive){try{await request('/api/admin',{action:'toggle_gift_code',id,isActive});toast('Gift code updated.');await refreshData()}catch(error){toast(error.message)}}
+    async function deleteGiftCode(id){if(!confirm('Delete this gift code and its redemption history?'))return;try{await request('/api/admin',{action:'delete_gift_code',id});toast('Gift code deleted.');await refreshData()}catch(error){toast(error.message)}}
+    async function copyText(value){try{await navigator.clipboard.writeText(value);toast('Copied to clipboard.')}catch{toast('Copy is not available on this device.')}}
+    async function submitAdminSecret(){
+      const value=$('admin-secret').value.trim();
+      if(!value){$('auth-message').textContent='Enter ADMIN_SECRET first.';return;}
+      localStorage.setItem('easygram_admin_secret',value);
+      await refreshData();
+    }
+    $('admin-login').addEventListener('click',submitAdminSecret);
+    $('admin-secret').addEventListener('keydown',(event)=>{if(event.key==='Enter')submitAdminSecret()});
+    $('admin-logout').addEventListener('click',()=>{localStorage.removeItem('easygram_admin_secret');$('admin-secret').value='';$('auth-message').textContent='Saved key cleared.';$('app').classList.add('hidden');$('auth-panel').classList.remove('hidden')});
+    $('task-form').addEventListener('submit',saveTask);$('gift-code-form').addEventListener('submit',saveGiftCode);$('settings-form').addEventListener('submit',saveSettings);$('moderator-form').addEventListener('submit',saveModerator);$('broadcast-form').addEventListener('submit',broadcast);$('channel-form').addEventListener('submit',saveRequiredChannel);
+    $('task-form').elements.kind.addEventListener('change',updateTaskFormKind);
+    window.switchTab=switchTab;window.refreshData=refreshData;window.openTaskModal=openTaskModal;window.closeTaskModal=closeTaskModal;window.editTask=editTask;window.deleteTask=deleteTask;window.toggleTask=toggleTask;window.reviewWithdrawal=reviewWithdrawal;window.deleteModerator=deleteModerator;window.searchUsers=searchUsers;window.copyText=copyText;window.toggleRequiredChannel=toggleRequiredChannel;window.deleteRequiredChannel=deleteRequiredChannel;window.testRequiredChannel=testRequiredChannel;window.testTaskChannel=testTaskChannel;window.editGiftCode=editGiftCode;window.resetGiftCodeForm=resetGiftCodeForm;window.toggleGiftCode=toggleGiftCode;window.deleteGiftCode=deleteGiftCode;window.setUserBan=setUserBan;window.adjustBalance=adjustBalance;
+    if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}
+    applyAdminLanguage();
+    if(savedAdminSecret || initData) refreshData();
+    else {
+      $('loading').classList.add('hidden');
+      $('auth-panel').classList.remove('hidden');
+      $('auth-message').textContent='Enter ADMIN_SECRET to open the admin panel.';
+    }
+  </script>
+</body>
+</html>
